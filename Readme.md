@@ -10,6 +10,21 @@ covering the specification of the requirements described [here](meBankCodingChal
 The application calculates and logs to terminal/console the relative account balance for a group of account transactions within a stipulated time frame
 and the number of transactions that are included.
 
+# Table of Contents
+
+* [Application design and some design decisions](#application-design-and-some-design-decisions)
+* [Prerequisites](#prerequisites)
+* [Running the test suite](#running-the-test-suite)
+* [Building the source](#building-the-source)
+* [Running the app from terminal](#running-the-app-from-terminal)
+* [Code coverage](#code-coverage)
+* [Code formatting](#code-formatting)
+
+
+
+
+
+
 
 ## Application design and some design decisions
 A class diagram showing how the various pieces and components fits together can be found [here](screenshots/classDiagram.png).
