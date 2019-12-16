@@ -1,8 +1,9 @@
 language: java
 
-script: mvn clean compile test
+script: mvn clean compile
 
-after_success: "mvn coveralls"
+after_success:
+  - mvn test jacoco:report coveralls:report
 
 env:
   global:
