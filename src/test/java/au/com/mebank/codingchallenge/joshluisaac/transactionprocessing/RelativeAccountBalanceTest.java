@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class RelativeAccountBalanceTest extends AbstractTest {
 
-  private RelativeAccountBalance relativeAccountBalance;
+  private AccountBalance relativeAccountBalance;
   private Transactions transactions;
   private static List<Transaction> dataSet;
 

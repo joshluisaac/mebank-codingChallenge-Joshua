@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class RelativeAccountBalance {
+public class RelativeAccountBalance implements AccountBalance {
 
   private final ITransactions<Transaction> transactions;
 
@@ -12,11 +12,7 @@ public class RelativeAccountBalance {
     this.transactions = transactions;
   }
 
-  /**
-   * Returns a result containing the account relative balance and no of included transactions.
-   *
-   * @return relative balance.
-   */
+  @Override
   public Result balance() {
     List<Transaction> creditTransactions = transactions.creditTransactions();
     List<Transaction> debitTransactions = transactions.debitTransactions();
