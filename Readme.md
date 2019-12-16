@@ -22,11 +22,6 @@ and the number of transactions that are included.
 * [Some exceptions and recovery measures](exceptions.md)
 
 
-
-
-
-
-
 ## Application design and some design decisions
 A class diagram showing how the various pieces and components fits together can be found [here](screenshots/classDiagram.png).
 Public interface methods to the system contains code documentation describing the operation.

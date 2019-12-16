@@ -1,12 +1,14 @@
 # Some exceptions and recovery measures
 
-* [AccountId cannot be blank or zero-length field](#accountid-cannot-be-blank-or-zero-length-field)
-* [from and to cannot be blank or zero-length field](#from-and-to-cannot-be-blank-or-zero-length-field)
-* [Invalid from or to dates](#invalid-from-or-to-dates)
-* [The application cannot find the CSV dataset file](#the-application-cannot-find-the-csv-dataset-file)
-* [AccountId, to & from cannot be null](#accountid-to--from-cannot-be-null)
+- [Some exceptions and recovery measures](#some-exceptions-and-recovery-measures)
+  - [AccountId cannot be blank or zero-length field](#accountid-cannot-be-blank-or-zero-length-field)
+  - [from and to cannot be blank or zero-length field](#from-and-to-cannot-be-blank-or-zero-length-field)
+  - [Invalid from or to dates](#invalid-from-or-to-dates)
+  - [The application cannot find the CSV dataset file](#the-application-cannot-find-the-csv-dataset-file)
+  - [AccountId, to &amp; from cannot be null](#accountid-to-amp-from-cannot-be-null)
 
 ## AccountId cannot be blank or zero-length field
+
 ```log
 Exception in thread "main" java.lang.IllegalArgumentException: AccountId is either blank or empty. AccountId cannot be a zero-length string
         at com.google.common.base.Preconditions.checkArgument(Preconditions.java:142)
@@ -16,6 +18,7 @@ Exception in thread "main" java.lang.IllegalArgumentException: AccountId is eith
 ```
 
 ## from and to cannot be blank or zero-length field
+
 ```log
 Exception in thread "main" java.lang.IllegalArgumentException: from is either blank or empty. from cannot be blank or zero-length string
         at com.google.common.base.Preconditions.checkArgument(Preconditions.java:142)
@@ -26,9 +29,11 @@ Exception in thread "main" java.lang.IllegalArgumentException: from is either bl
 ```
 
 ## Invalid from or to dates
+
 > Date must be in the following format `dd/MM/yyyy HH:mm:ss` For example, `20/10/2018 19:00:00`
+
 ```log
-Exception in thread "main" java.lang.IllegalArgumentException: 20/10/2018 19:00:0 is an invalid datetime format. 
+Exception in thread "main" java.lang.IllegalArgumentException: 20/10/2018 19:00:0 is an invalid datetime format.
  Please use the following format (dd/MM/yyyy HH:mm:ss)
         at au.com.mebank.codingchallenge.joshluisaac.transactionprocessing.TransactionUtils.parseDate(TransactionUtils.java:38)
         at au.com.mebank.codingchallenge.joshluisaac.FinancialTransactionApplication.createTransactionQueryScope(FinancialTransactionApplication.java:96)
@@ -42,7 +47,9 @@ Caused by: java.time.format.DateTimeParseException: Text '20/10/2018 19:00:0' co
 ```
 
 ## The application cannot find the CSV dataset file
+
 > Please check `-DcsvFile="sampleDataSet.csv"` argument
+
 ```log
 Exception in thread "main" java.nio.file.NoSuchFileException: sampleDataSet.csvx
         at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
@@ -59,7 +66,9 @@ Exception in thread "main" java.nio.file.NoSuchFileException: sampleDataSet.csvx
 ```
 
 ## AccountId, to & from cannot be null
+
 > Please check `-DaccountId,-Dfrom and -Dto` JVM arguments
+
 ```log
 Exception in thread "main" java.lang.NullPointerException: accountId is marked non-null but is null
         at au.com.mebank.codingchallenge.joshluisaac.FinancialTransactionApplication.jvmArgsPreconditions(FinancialTransactionApplication.java:68)
