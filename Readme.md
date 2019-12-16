@@ -149,6 +149,11 @@ Execute the below command to build and execute the app from terminal.
 ```bash
 mvn clean install && java -jar -DaccountId="ACC334455" -Dfrom="20/10/2018 12:00:00" -Dto="20/10/2018 19:00:00" -DcsvFile="sampleDataSet.csv" target/mebank-codingChallenge-Joshua-0.0.1-SNAPSHOT.jar
 ```
+or the following command to execute the application alone after building
+
+```bash
+java -jar -DaccountId="ACC334455" -Dfrom="20/10/2018 12:00:00" -Dto="20/10/2018 19:00:00" -DcsvFile="sampleDataSet.csv" target/mebank-codingChallenge-Joshua-0.0.1-SNAPSHOT.jar
+```
 
 #### JVM/Command-line arguments
 * AccountId: `-DaccountId="ACC334455"`
