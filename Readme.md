@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/joshluisaac/mebank-codingChallenge-Joshua.svg?branch=master)](https://travis-ci.org/joshluisaac/mebank-codingChallenge-Joshua)
+
 
 # Transaction Processing Application
 
@@ -17,11 +19,12 @@ This object is then used to query those accounts that fall within that scope.
 
 ### Transactions
 A [Transactions](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transactions.java) object is the representation of the list of transaction entries. 
-Each entry is represented as a [Transaction](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transaction.java) 
+Each entry is represented as a [Transaction](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transaction.java).
+
 For the transactions object to be in a valid state, it must satisfy the following invariants 
 
-*  `Transaction scope` and input `transactionDataSet` cannot be null.
-*  `transactionDataSet` cannot be empty.
+1.  `Transaction scope` and input `transactionDataSet` cannot be null.
+2. `transactionDataSet` cannot be empty.
 
 ## Prerequisites
 
