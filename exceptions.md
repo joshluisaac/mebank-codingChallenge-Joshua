@@ -1,6 +1,6 @@
 # Some exceptions and recovery measures
 
-- [Some exceptions and recovery measures](#some-exceptions-and-recovery-measures)
+  - [Some exceptions and recovery measures](#some-exceptions-and-recovery-measures)
   - [AccountId cannot be blank or zero-length field](#accountid-cannot-be-blank-or-zero-length-field)
   - [from and to cannot be blank or zero-length field](#from-and-to-cannot-be-blank-or-zero-length-field)
   - [Invalid from or to dates](#invalid-from-or-to-dates)

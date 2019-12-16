@@ -10,6 +10,14 @@ covering the specification of the requirements described [here](meBankCodingChal
 The application calculates and logs to terminal/console the relative account balance for a group of account transactions within a stipulated time frame
 and the number of transactions that are included.
 
+# Deliverables
+
+1. [Source code](src/main/java)
+2. [Documentation](Readme.pdf)
+3. [Exception documentation and recovery strategies](exceptionsAndRecoveryStrategies.pdf)
+4. [Test harness](src/test)
+5. [Test coverage](https://coveralls.io/jobs/56914384)
+
 # Table of Contents
 
 * [Application design and some design decisions](#application-design-and-some-design-decisions)
