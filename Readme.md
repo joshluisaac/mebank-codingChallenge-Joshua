@@ -19,7 +19,16 @@ Public interface methods to the system contains code documentation describing th
 [RelativeAccountBalance](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/RelativeAccountBalance.java) 
 implements [AccountBalance](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/AccountBalance.java) interface and it's responsibility is to __collate/compute the total of credit and debit transactions__. It has a `balance()` method which returns a 
 [Result](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Result.java). 
-Calling `Result.balance()` returns the relative balance while `Result.transactionsIncluded()` returns the number of transactions included.
+
+Invoking `Result.balance()` returns the relative balance while `Result.transactionsIncluded()` returns the number of transactions included.
+
+This object has the following invariant. For it to be in a valid state, transactions must be `NonNull`
+
+```java
+  public RelativeAccountBalance(@NonNull ITransactions<Transaction> transactions) {
+    this.transactions = transactions;
+  }
+```
 
 ### What is a TransactionQueryScope?
 A [TransactionQueryScope](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/TransactionQueryScope.java) is the notion of a group of related account transactions that were created within a 
