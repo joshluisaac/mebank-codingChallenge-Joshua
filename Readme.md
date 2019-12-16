@@ -15,6 +15,7 @@ and the number of transactions that are included.
 A class diagram showing how the various pieces and components fits together can be found [here](screenshots/classDiagram.png).
 Public interface methods to the system contains code documentation describing the operation.
 
+
 ### RelativeAccountBalance
 [RelativeAccountBalance](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/RelativeAccountBalance.java) 
 implements [AccountBalance](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/AccountBalance.java) interface and it's responsibility is to __collate/compute the total of credit and debit transactions__. It has a `balance()` method which returns a 
@@ -30,11 +31,6 @@ This object has the following invariant. For it to be in a valid state, transact
   }
 ```
 
-### What is a TransactionQueryScope?
-A [TransactionQueryScope](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/TransactionQueryScope.java) is the notion of a group of related account transactions that were created within a 
-given [TimeFrame](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/TimeFrame.java).
-This object is then used to query those accounts that fall within that scope. 
-
 ### Transactions
 A [Transactions](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transactions.java) object is the representation of the list of transaction entries. 
 Each entry is represented as a [Transaction](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transaction.java).
@@ -43,6 +39,32 @@ For the transactions object to be in a valid state, it must satisfy the followin
 
 1.  `Transaction scope` and input `transactionDataSet` cannot be null.
 2. `transactionDataSet` cannot be empty.
+
+Transactions invariants and preconditions
+```java
+  public Transactions(
+      @NonNull List<Transaction> transactionDataSet, @NonNull TransactionQueryScope queryScope) {
+    this.transactionDataSet = transactionDataSet;
+    this.queryScope = queryScope;
+    Preconditions.checkArgument(!transactionDataSet.isEmpty(), "Transaction dataset is empty");
+  }
+```
+
+### TransactionQueryScope
+A [TransactionQueryScope](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/TransactionQueryScope.java) is the notion of a group of related account transactions that were created within a 
+given [TimeFrame](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/TimeFrame.java).
+This object is then used to query those accounts that fall within that scope. 
+
+### TransactionType
+[TransactionType](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/TransactionType.java) is represented as an enum of either `PAYMENT` or `REVERSAL`
+
+```java
+public enum TransactionType {
+  PAYMENT,
+  REVERSAL;
+}
+```
+
 
 ## Prerequisites
 
@@ -129,7 +151,8 @@ Code coverage was both executed as part of maven build cycle using [JaCoCo](http
 ![alt text][codecoverage]
 
 ### Coverall report
-Executing the following command will generate Jacoco and coveralls coverage reports.
+Executing the following command will generate Jacoco and [coveralls coverage reports](https://coveralls.io/jobs/56914384
+).
 ```bash
 mvn clean test jacoco:report coveralls:report
 ```
