@@ -3,12 +3,13 @@ package au.com.mebank.codingchallenge.joshluisaac.transactionprocessing;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
+import lombok.NonNull;
 
 public class RelativeAccountBalance implements AccountBalance {
 
   private final ITransactions<Transaction> transactions;
 
-  public RelativeAccountBalance(ITransactions<Transaction> transactions) {
+  public RelativeAccountBalance(@NonNull ITransactions<Transaction> transactions) {
     this.transactions = transactions;
   }
 

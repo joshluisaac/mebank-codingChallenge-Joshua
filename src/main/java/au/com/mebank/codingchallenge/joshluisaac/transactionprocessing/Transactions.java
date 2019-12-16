@@ -1,10 +1,12 @@
 package au.com.mebank.codingchallenge.joshluisaac.transactionprocessing;
 
+import com.google.common.base.Preconditions;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.NonNull;
 
 public class Transactions implements ITransactions<Transaction> {
 
@@ -12,9 +14,11 @@ public class Transactions implements ITransactions<Transaction> {
   private final TransactionQueryScope queryScope;
   private Supplier<Stream<Transaction>> streamSupplier;
 
-  public Transactions(List<Transaction> transactionDataSet, TransactionQueryScope queryScope) {
+  public Transactions(
+      @NonNull List<Transaction> transactionDataSet, @NonNull TransactionQueryScope queryScope) {
     this.transactionDataSet = transactionDataSet;
     this.queryScope = queryScope;
+    Preconditions.checkArgument(!transactionDataSet.isEmpty(), "Transaction dataset is empty");
   }
 
   @Override
