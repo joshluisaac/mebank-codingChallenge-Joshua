@@ -8,8 +8,9 @@ import java.util.List;
 
 public class TransactionUtils {
 
+  private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
-      DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+      DateTimeFormatter.ofPattern(DATE_FORMAT);
 
   private TransactionUtils() {}
 
@@ -31,6 +32,11 @@ public class TransactionUtils {
   }
 
   public static LocalDateTime parseDate(String rawDate) {
-    return LocalDateTime.parse(rawDate, DATE_TIME_FORMATTER);
+    try {
+      return LocalDateTime.parse(rawDate, DATE_TIME_FORMATTER);
+    } catch (RuntimeException ex) {
+      throw new IllegalArgumentException(String.format("%s is an invalid datetime format. %n Please use the following format (%s)", rawDate, DATE_FORMAT), ex);
+    }
+
   }
 }
