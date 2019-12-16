@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Credit transactions are transactions in which money flows into an account. These may also be
- * referred to as Accounts receivable (AR). It uses the toAccountId to identify these cases"
+ * referred to as Accounts receivable (AR). It uses the {@link Transaction#getToAccountId()} to
+ * identify these cases"
  */
 @DisplayName("Credit transactions test cases")
 public class CreditTransactionsTestCase extends AbstractTest {

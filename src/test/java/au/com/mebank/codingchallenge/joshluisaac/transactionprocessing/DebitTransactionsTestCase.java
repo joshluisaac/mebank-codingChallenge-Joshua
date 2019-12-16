@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Debit transactions are transactions in which money flows out of an account. These may also be
- * referred to as Accounts payable (AP). It uses the fromAccountId to identify these cases"
+ * referred to as Accounts payable (AP). It uses the {@link Transaction#getFromAccountId()} to
+ * identify these cases."
  */
 @DisplayName("Debit transactions test cases")
 public class DebitTransactionsTestCase extends AbstractTest {
