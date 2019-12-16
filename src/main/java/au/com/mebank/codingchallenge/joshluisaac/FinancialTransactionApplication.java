@@ -10,8 +10,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FinancialTransactionApplication {
+
+  private static final Logger LOG = LoggerFactory.getLogger(FinancialTransactionApplication.class);
 
   private FinancialTransactionApplication() {}
 
@@ -112,8 +116,20 @@ public class FinancialTransactionApplication {
     }
   }
 
+  private static void printJvmArgs() {
+    final Map<String, String> jvmArgs = mapJvmArgs();
+    jvmArgs.forEach((k, v) -> System.out.println(">>> " + k + ": " + v));
+  }
+
   private static void printResult(Result result) {
-    System.out.println("Relative  balance for the period is: " + result.getBalance());
-    System.out.println("Number of transactions included is: " + result.getTransactionsIncluded());
+    System.out.println(String.format("%n"));
+    LOG.info("Printing Command line arguments");
+    printJvmArgs();
+    System.out.println(String.format("%n"));
+    LOG.info("Printing results");
+    System.out.println(">>> Relative  balance for the period is: " + result.getBalance());
+    System.out.println(
+        ">>> Number of transactions included is: " + result.getTransactionsIncluded());
+    System.out.println(String.format("%n"));
   }
 }

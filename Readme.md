@@ -165,16 +165,25 @@ java -jar -DaccountId="ACC334455" -Dfrom="20/10/2018 12:00:00" -Dto="20/10/2018 
 * CSV File Path: `-DcsvFile="sampleDataSet.csv"`
   > Transaction data set.
 
-Executing the above command will produce this output
+Executing the above command will produce this output. The results and the command line arguments which was used to produce that result is
+presented to the user.
 ```log
-Relative  balance for the period is: -25.00
-Number of transactions included is: 1
+2019-12-17 09:57:21,159 INFO  Printing Command line arguments
+>>> csvFile: sampleDataSet.csv
+>>> to: 20/10/2018 19:00:00
+>>> from: 20/10/2018 12:00:00
+>>> accountId: ACC334455
+
+
+2019-12-17 09:57:21,170 INFO  Printing results
+>>> Relative  balance for the period is: -25.00
+>>> Number of transactions included is: 1
 ```
 
 ## Code coverage
 
 ### Jacoco code coverage
-While the goal of the test harness is to cover as much edge and corner cases, that naturally led to a wider coverage of over 90%.
+While the goal of the test harness is to cover as much edge and corner cases, that naturally led to a wider coverage of over 85%.
 Code coverage was both executed as part of maven build cycle using [JaCoCo](https://github.com/jacoco/jacoco)  and from IDE
 
 ![alt text][codeCoverageJacoco]
