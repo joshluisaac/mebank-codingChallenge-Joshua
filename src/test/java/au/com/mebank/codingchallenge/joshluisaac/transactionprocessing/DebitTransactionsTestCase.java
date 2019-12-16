@@ -48,15 +48,14 @@ public class DebitTransactionsTestCase extends AbstractTest {
   void debitTransactionsShouldIncrease_OnNewDebitTransactionEntryWithInTimeFrame() {
     // when a new debit transaction is added within the given time frame
     Transaction debitTransactionWithinTimeFrame =
-        Transaction.builder()
-            .transactionId("TX80003")
-            .fromAccountId("ACC334455")
-            .toAccountId("ACC778899")
-            .createdAt(TransactionUtils.parseDate("20/10/2018 14:00:01"))
-            .amount(new BigDecimal("42.00"))
-            .transactionType(TransactionType.PAYMENT)
-            .build();
+            makePayment(
+                    "TX80003",
+                    "ACC334455",
+                    "ACC778899",
+                    TransactionUtils.parseDate("20/10/2018 14:00:01"),
+                    new BigDecimal("42.00"));
     dataSet.add(debitTransactionWithinTimeFrame);
+
     // i expect the size of debit transactions to increase
     assertThat(transactions.debitTransactions().size()).isEqualTo(2);
   }
@@ -67,15 +66,14 @@ public class DebitTransactionsTestCase extends AbstractTest {
   void debitTransactionsOutsideTimeFrame_ShouldHaveNoEffectOnComputation() {
     // when a new debit transaction is added outside the given time frame
     Transaction debitTransactionOutsideTimeFrame =
-        Transaction.builder()
-            .transactionId("TX59008")
-            .fromAccountId("ACC334455")
-            .toAccountId("ACC778899")
-            .createdAt(TransactionUtils.parseDate("20/10/2018 21:00:01"))
-            .amount(new BigDecimal("100.00"))
-            .transactionType(TransactionType.PAYMENT)
-            .build();
+        makePayment(
+            "TX59008",
+            "ACC334455",
+            "ACC778899",
+            TransactionUtils.parseDate("20/10/2018 21:00:01"),
+            new BigDecimal("100.00"));
     dataSet.add(debitTransactionOutsideTimeFrame);
+
     // i expect the size of debit transactions to remain the same
     assertThat(transactions.debitTransactions().size()).isEqualTo(1);
   }
