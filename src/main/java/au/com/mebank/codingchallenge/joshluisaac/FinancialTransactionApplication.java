@@ -13,19 +13,25 @@ import lombok.NonNull;
 
 public class FinancialTransactionApplication {
 
+  private FinancialTransactionApplication() {}
+
   private static final String ACCOUNT_ID = "accountId";
   private static final String START_DATE = "from";
   private static final String END_DATE = "to";
   private static final String CSV_FILE_PATH = "csvFile";
 
   public static void main(String[] args) throws IOException {
+    Result result = invoke();
+    printResult(result);
+  }
+
+  public static Result invoke() throws IOException {
     final Map<String, String> jvmArgs = mapJvmArgs();
     final TransactionQueryScope queryScope = createTransactionQueryScope(jvmArgs);
     final ITransactions<Transaction> transactions =
         new Transactions(createTransactionDataSet(jvmArgs), queryScope);
     final AccountBalance accountBalance = new RelativeAccountBalance(transactions);
-    final Result result = accountBalance.balance();
-    printResult(result);
+    return accountBalance.balance();
   }
 
   /**
@@ -33,7 +39,7 @@ public class FinancialTransactionApplication {
    *
    * @return {@link Map} of JVM args.
    */
-  static Map<String, String> mapJvmArgs() {
+  private static Map<String, String> mapJvmArgs() {
     String accountId = System.getProperty(ACCOUNT_ID);
     String startDate = System.getProperty(START_DATE).trim();
     String endDate = System.getProperty(END_DATE).trim();
@@ -54,7 +60,7 @@ public class FinancialTransactionApplication {
    * @param endDate
    * @param csvFilePath
    */
-  static void jvmArgsPreconditions(
+  private static void jvmArgsPreconditions(
       @NonNull String accountId,
       @NonNull String startDate,
       @NonNull String endDate,
@@ -79,7 +85,7 @@ public class FinancialTransactionApplication {
    * @param jvmArgs
    * @return returns the specified {@link TransactionQueryScope}
    */
-  static TransactionQueryScope createTransactionQueryScope(Map<String, String> jvmArgs) {
+  private static TransactionQueryScope createTransactionQueryScope(Map<String, String> jvmArgs) {
     TimeFrame timeFrame =
         TimeFrame.builder()
             .startDate(TransactionUtils.parseDate(jvmArgs.get(START_DATE)))
@@ -97,7 +103,7 @@ public class FinancialTransactionApplication {
    * @param jvmArgs
    * @return returns the specified {@link List<Transaction>} of transactions
    */
-  static List<Transaction> createTransactionDataSet(Map<String, String> jvmArgs)
+  private static List<Transaction> createTransactionDataSet(Map<String, String> jvmArgs)
       throws IOException {
     try (Stream<String> stream = Files.lines(Paths.get(jvmArgs.get(CSV_FILE_PATH)))) {
       return stream
@@ -106,7 +112,7 @@ public class FinancialTransactionApplication {
     }
   }
 
-  static void printResult(Result result) {
+  private static void printResult(Result result) {
     System.out.println("Relative  balance for the period is: " + result.getBalance());
     System.out.println("Number of transactions included is: " + result.getTransactionsIncluded());
   }

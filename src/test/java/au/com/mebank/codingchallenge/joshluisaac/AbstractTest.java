@@ -5,7 +5,7 @@ import au.com.mebank.codingchallenge.joshluisaac.transactionprocessing.Transacti
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class AbstractTest {
+public abstract class AbstractTest {
 
   protected Transaction makePayment(
       String transactionId,

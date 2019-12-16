@@ -21,30 +21,31 @@ public class CreditTransactionsTestCase extends AbstractTest {
 
   private Transactions transactions;
   private static List<Transaction> dataSet;
+  private TransactionQueryScope queryScope;
 
   @BeforeEach
-  public void beforeTransactionsTestForCreditTransactionCases() {
+  public void beforeCreditTransactionsTestCase() {
     TimeFrame timeFrame =
         TimeFrame.builder()
             .startDate(TransactionUtils.parseDate("20/10/2018 12:00:00"))
             .endDate(TransactionUtils.parseDate("20/10/2018 19:00:00"))
             .build();
-    TransactionQueryScope queryScope =
+    queryScope =
         TransactionQueryScope.builder().accountId("ACC334455").timeFrame(timeFrame).build();
     dataSet = FakeTestData.fakeDataSet();
     transactions = new Transactions(dataSet, queryScope);
   }
 
-  @DisplayName("Should return the size of credit transactions")
   @Test
+  @DisplayName("Should return the size of credit transactions")
   void testShouldReturnCreditTransactions() {
     assertThat(transactions.creditTransactions().size()).isEqualTo(0);
   }
 
+  @Test
   @DisplayName(
       "Adding a credit transaction should cause "
           + "an increase credit transactions and impact relative balance computation provided it is within the given time frame")
-  @Test
   void creditTransactionsShouldIncrease_OnNewCreditTransactionEntryWithInTimeFrame() {
 
     // when a credit transaction is added within the given time frame
@@ -56,9 +57,9 @@ public class CreditTransactionsTestCase extends AbstractTest {
     assertThat(transactions.creditTransactions().size()).isEqualTo(1);
   }
 
+  @Test
   @DisplayName(
       "Adding a credit transaction outside the given time frame has no effect on relative balance computation.")
-  @Test
   void creditTransactionsOutsideTimeFrame_ShouldHaveNoEffectOnComputation() {
 
     // when a credit transaction is added outside the given time frame
@@ -71,8 +72,8 @@ public class CreditTransactionsTestCase extends AbstractTest {
     assertThat(transactions.creditTransactions().size()).isEqualTo(0);
   }
 
-  @DisplayName("Reversed transactions has no observable effect on the credit side of things.")
   @Test
+  @DisplayName("Reversed transactions has no observable effect on the credit side of things.")
   void reversedTransactionsShouldHaveNoEffectOnCreditSide() {
 
     // when i make a payment on start of time frame

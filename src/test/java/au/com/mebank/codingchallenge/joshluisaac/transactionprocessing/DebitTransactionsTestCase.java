@@ -24,7 +24,7 @@ public class DebitTransactionsTestCase extends AbstractTest {
   private static List<Transaction> dataSet;
 
   @BeforeEach
-  public void beforeTransactionsTestForDebitCases() {
+  public void beforeDebitTransactionsTestCase() {
     TimeFrame timeFrame =
         TimeFrame.builder()
             .startDate(TransactionUtils.parseDate("20/10/2018 12:00:00"))
@@ -36,16 +36,16 @@ public class DebitTransactionsTestCase extends AbstractTest {
     transactions = new Transactions(dataSet, queryScope);
   }
 
-  @DisplayName("Should return the size of debit transactions")
   @Test
+  @DisplayName("Should return the size of debit transactions")
   void testShouldReturnDebitTransactions() {
     assertThat(transactions.debitTransactions().size()).isEqualTo(1);
   }
 
+  @Test
   @DisplayName(
       "Adding a new debit transaction should cause "
           + "an increase provided it was within the given time frame")
-  @Test
   void debitTransactionsShouldIncrease_OnNewDebitTransactionEntryWithInTimeFrame() {
     // when a new debit transaction is added within the given time frame
     Transaction debitTransactionWithinTimeFrame =
@@ -61,9 +61,9 @@ public class DebitTransactionsTestCase extends AbstractTest {
     assertThat(transactions.debitTransactions().size()).isEqualTo(2);
   }
 
+  @Test
   @DisplayName(
       "Adding a new debit transaction outside the given time frame has no effect on relative balance computation.")
-  @Test
   void debitTransactionsOutsideTimeFrame_ShouldHaveNoEffectOnComputation() {
     // when a new debit transaction is added outside the given time frame
     Transaction debitTransactionOutsideTimeFrame =
@@ -79,9 +79,9 @@ public class DebitTransactionsTestCase extends AbstractTest {
     assertThat(transactions.debitTransactions().size()).isEqualTo(1);
   }
 
+  @Test
   @DisplayName(
       "Reversing a transaction before start of time frame has no effect on relative balance computation.")
-  @Test
   void reversingTransactionBeforeStartOfTimeFrame_ShouldHaveNoEffect() {
     // before start of time frame
     LocalDateTime createdAt = TransactionUtils.parseDate("20/10/2018 10:12:22");
@@ -97,10 +97,10 @@ public class DebitTransactionsTestCase extends AbstractTest {
     assertThat(transactions.debitTransactions().size()).isEqualTo(1);
   }
 
+  @Test
   @DisplayName(
       "Reversing a transaction on start of time frame should omit reversed transaction "
           + "and also affect relative balance computation.")
-  @Test
   void reversingTransactionOnStartOfTimeFrame_ShouldOmitReversedTransaction() {
     LocalDateTime createdAt = TransactionUtils.parseDate("20/10/2018 12:00:00");
     // when i make a payment on start of time frame
@@ -117,10 +117,10 @@ public class DebitTransactionsTestCase extends AbstractTest {
     assertThat(transactions.debitTransactions().size()).isEqualTo(0);
   }
 
+  @Test
   @DisplayName(
       "Reversing a transaction within the specified time frame should omit reversed transaction "
           + "and also affect relative balance computation.")
-  @Test
   void reversingTransactionWithinTimeFrame_ShouldOmitReversedTransaction() {
     LocalDateTime paymentCreatedDate = TransactionUtils.parseDate("20/10/2018 12:00:00");
     LocalDateTime reversedCreatedDate = TransactionUtils.parseDate("20/10/2018 12:47:55");
@@ -145,10 +145,10 @@ public class DebitTransactionsTestCase extends AbstractTest {
     assertThat(transactions.debitTransactions().size()).isEqualTo(0);
   }
 
+  @Test
   @DisplayName(
       "Reversing a transaction after the specified time frame should omit reversed transaction "
           + "and also affect relative balance computation.")
-  @Test
   void reversingTransactionAfterTimeFrame_ShouldOmitReversedTransaction() {
     LocalDateTime paymentCreatedDate = TransactionUtils.parseDate("20/10/2018 12:00:00");
     LocalDateTime reversedCreatedDate = TransactionUtils.parseDate("24/10/2018 21:47:55");

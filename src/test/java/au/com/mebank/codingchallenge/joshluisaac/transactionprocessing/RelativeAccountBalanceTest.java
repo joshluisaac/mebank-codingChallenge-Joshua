@@ -100,4 +100,11 @@ public class RelativeAccountBalanceTest extends AbstractTest {
     Result result = relativeAccountBalance.balance();
     assertThat(result.getTransactionsIncluded()).isEqualTo(2);
   }
+
+  @Test
+  void shouldThrowNullPointer_WhenTransactionsIsNull() {
+    Throwable throwable =
+        catchThrowable(() -> relativeAccountBalance = new RelativeAccountBalance(null));
+    assertThat(throwable).isInstanceOf(NullPointerException.class);
+  }
 }

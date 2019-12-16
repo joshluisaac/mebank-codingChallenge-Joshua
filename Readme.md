@@ -21,7 +21,7 @@ Each entry is represented as a [Transaction](src/main/java/au/com/mebank/codingc
 For the transactions object to be in a valid state, it must satisfy the following invariants 
 
 *  `Transaction scope` and input `transactionDataSet` cannot be null.
-* 
+*  `transactionDataSet` cannot be empty.
 
 ## Prerequisites
 
@@ -52,8 +52,30 @@ Execute the below command to build and execute the app from terminal.
 mvn clean install && java -jar -DaccountId="ACC334455" -Dfrom="20/10/2018 12:00:00" -Dto="20/10/2018 19:00:00" -DcsvFile="sampleDataSet.csv" target/mebank-codingChallenge-Joshua-0.0.1-SNAPSHOT.jar
 ```
 
+#### JVM arguments
+* AccountId: `-DaccountId="ACC334455"`
+* Start Date: `-Dfrom="20/10/2018 12:00:00"`
+* End Date: `-Dto="20/10/2018 19:00:00"`
+* CSV File Path: `-DcsvFile="sampleDataSet.csv"`
+
+Executing the above command will produce this output
+```bash
+Relative  balance for the period is: -25.00
+Number of transactions included is: 1
+```
+
+## Code coverage
+
+While the goal of the test harness is to cover as much edge and corner cases, that naturally led to a wider coverage of over 90%.
+Code coverage was both executed as part of maven build cycle using [JaCoCo](https://github.com/jacoco/jacoco)  and from IDE
+
+![alt text][codeCoverageJacoco]
+![alt text][codecoverage]
 
 ## Code formatting
 Source code was formatted using [google-java-format](https://github.com/google/google-java-format)
 
-## 
+[codecoverage]: screenshots/codeCoverage_Ide.png "codeCoverage_Ide"
+[codeCoverageJacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
+
+
