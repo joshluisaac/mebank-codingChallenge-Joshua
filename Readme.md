@@ -15,7 +15,7 @@ and the number of transactions that are included.
 A class diagram showing how the various pieces and components fits together can be found [here](screenshots/classDiagram.png).
 Public interface methods to the system contains code documentation describing the operation.
 
-
+                                                                                   
 ### RelativeAccountBalance
 [RelativeAccountBalance](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/RelativeAccountBalance.java) 
 implements [AccountBalance](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/AccountBalance.java) interface and it's responsibility is to __collate/compute the total of credit and debit transactions__. It has a `balance()` method which returns a 
@@ -32,7 +32,8 @@ This object has the following invariant. For it to be in a valid state, transact
 ```
 
 ### Transactions
-A [Transactions](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transactions.java) object is the representation of the list of transaction entries. 
+A [Transactions](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transactions.java) object is the representation of the list of transaction entries. It implements 
+`ITransactions<Transaction>` and has operations for retrieving credit and debit transactions.
 Each entry is represented as a [Transaction](src/main/java/au/com/mebank/codingchallenge/joshluisaac/transactionprocessing/Transaction.java).
 
 For the transactions object to be in a valid state, it must satisfy the following invariants 
@@ -64,6 +65,15 @@ public enum TransactionType {
   REVERSAL;
 }
 ```
+
+### Credit & debit transactions
+Every transaction is 2-phased. Money flows out on one end and money is received at the other end.
+
+__Credit transactions__ are transactions in which money flows into an account. These may also be referred to as Accounts receivable (AR). 
+It uses `Transaction.getToAccountId()` to identify these cases.
+
+__Debit transactions__ are transactions in which money flows out of an account. These may also be referred to as Accounts payable (AP).
+It uses `Transaction.getFromAccountId()` to identify these cases.
 
 
 ## Prerequisites
