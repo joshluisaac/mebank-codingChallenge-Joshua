@@ -19,6 +19,7 @@ and the number of transactions that are included.
 * [Running the app from terminal](#running-the-app-from-terminal)
 * [Code coverage](#code-coverage)
 * [Code formatting](#code-formatting)
+* [Some exceptions and recovery measures](exceptions.md)
 
 
 

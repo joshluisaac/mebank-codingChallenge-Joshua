@@ -35,8 +35,11 @@ public class TransactionUtils {
     try {
       return LocalDateTime.parse(rawDate, DATE_TIME_FORMATTER);
     } catch (RuntimeException ex) {
-      throw new IllegalArgumentException(String.format("%s is an invalid datetime format. %n Please use the following format (%s)", rawDate, DATE_FORMAT), ex);
+      throw new IllegalArgumentException(
+          String.format(
+              "%s is an invalid datetime format. %n Please use the following format (%s)",
+              rawDate, DATE_FORMAT),
+          ex);
     }
-
   }
 }
