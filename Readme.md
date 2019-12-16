@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/joshluisaac/mebank-codingChallenge-Joshua.svg?branch=master)](https://travis-ci.org/joshluisaac/mebank-codingChallenge-Joshua)
 
+[![Coverage Status](https://coveralls.io/repos/github/joshluisaac/mebank-codingChallenge-Joshua/badge.svg)](https://coveralls.io/github/joshluisaac/mebank-codingChallenge-Joshua)
+
 
 # Transaction Processing Application
 
