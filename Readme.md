@@ -121,16 +121,29 @@ Number of transactions included is: 1
 
 ## Code coverage
 
+### Jacoco code coverage
 While the goal of the test harness is to cover as much edge and corner cases, that naturally led to a wider coverage of over 90%.
 Code coverage was both executed as part of maven build cycle using [JaCoCo](https://github.com/jacoco/jacoco)  and from IDE
 
 ![alt text][codeCoverageJacoco]
 ![alt text][codecoverage]
 
+### Coverall report
+Executing the following command will generate Jacoco and coveralls coverage reports.
+```bash
+mvn clean test jacoco:report coveralls:report
+```
+![alt text][coverallReport]
+
+
 ## Code formatting
 Source code was formatted using [google-java-format](https://github.com/google/google-java-format)
 
+
+
 [codecoverage]: screenshots/codeCoverage_Ide.png "codeCoverage_Ide"
 [codeCoverageJacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
+[coverallReport]: screenshots/coverallReport.png "coverallReport"
+
 
 
