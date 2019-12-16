@@ -3,11 +3,10 @@ package au.com.mebank.codingchallenge.joshluisaac.transactionprocessing;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import au.com.mebank.codingchallenge.joshluisaac.AbstractTest;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import au.com.mebank.codingchallenge.joshluisaac.FakeTestData;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,21 +42,14 @@ public class CreditTransactionsTestCase extends AbstractTest {
 
   @DisplayName(
       "Adding a credit transaction should cause "
-          + "an increase in relative balance provided it is within the given time frame")
+          + "an increase credit transactions and impact relative balance computation provided it is within the given time frame")
   @Test
   void creditTransactionsShouldIncrease_OnNewCreditTransactionEntryWithInTimeFrame() {
 
     // when a credit transaction is added within the given time frame
-    Transaction creditTransactionWithinTimeFrame =
-        Transaction.builder()
-            .transactionId("TX80003")
-            .fromAccountId("ACC778899")
-            .toAccountId("ACC334455")
-            .createdAt(TransactionUtils.parseDate("20/10/2018 14:00:01"))
-            .amount(new BigDecimal("42.00"))
-            .transactionType(TransactionType.PAYMENT)
-            .build();
-    dataSet.add(creditTransactionWithinTimeFrame);
+    LocalDateTime transactionDate = TransactionUtils.parseDate("20/10/2018 14:00:01");
+    dataSet.add(
+        makePayment("TX80003", "ACC778899", "ACC334455", transactionDate, new BigDecimal("42.00")));
 
     // i expect the size of credit transactions to increase
     assertThat(transactions.creditTransactions().size()).isEqualTo(1);
@@ -69,18 +61,12 @@ public class CreditTransactionsTestCase extends AbstractTest {
   void creditTransactionsOutsideTimeFrame_ShouldHaveNoEffectOnComputation() {
 
     // when a credit transaction is added outside the given time frame
-    Transaction creditTransactionOutsideTimeFrame =
-        Transaction.builder()
-            .transactionId("TX59008")
-            .fromAccountId("ACC778899")
-            .toAccountId("ACC334455")
-            .createdAt(TransactionUtils.parseDate("20/10/2018 21:00:01"))
-            .amount(new BigDecimal("100.00"))
-            .transactionType(TransactionType.PAYMENT)
-            .build();
+    LocalDateTime transactionDate = TransactionUtils.parseDate("20/10/2018 21:00:01");
+    dataSet.add(
+        makePayment(
+            "TX59008", "ACC778899", "ACC334455", transactionDate, new BigDecimal("100.00")));
 
-    dataSet.add(creditTransactionOutsideTimeFrame);
-    // i expect the size of credit transactions to remain the same
+    // i expect the size of credit transactions to remain unaffected.
     assertThat(transactions.creditTransactions().size()).isEqualTo(0);
   }
 
@@ -88,21 +74,25 @@ public class CreditTransactionsTestCase extends AbstractTest {
   @Test
   void reversedTransactionsShouldHaveNoEffectOnCreditSide() {
 
-    // when a reversed transaction is added
-    Transaction creditTransactionOutsideTimeFrame =
-        Transaction.builder()
-            .transactionId("TX59008")
-            .fromAccountId("ACC778899")
-            .toAccountId("ACC334455")
-            .createdAt(TransactionUtils.parseDate("20/10/2018 17:00:01"))
-            .amount(new BigDecimal("100.00"))
-            .transactionType(TransactionType.REVERSAL)
-            .build();
+    // when i make a payment on start of time frame
+    LocalDateTime paymentCreatedDate = TransactionUtils.parseDate("20/10/2018 12:00:00");
+    Transaction payment =
+        makePayment(
+            "TX120001", "ACC778899", "ACC334455", paymentCreatedDate, new BigDecimal("22.50"));
 
-    dataSet.add(creditTransactionOutsideTimeFrame);
+    // then i reverse the payment transaction after time frame
+    LocalDateTime reversedCreatedDate = TransactionUtils.parseDate("24/10/2018 21:47:55");
+    Transaction paymentReversal =
+        reversePayment(
+            "TX120002",
+            "ACC778899",
+            "ACC334455",
+            reversedCreatedDate,
+            new BigDecimal("22.50"),
+            "TX120001");
+
+    transactions.setTransactionDataSet(List.of(payment, paymentReversal));
     // i expect the size of credit transactions to remain the same
-    assertThat(transactions.creditTransactions().size()).isEqualTo(0);
+    assertThat(transactions.creditTransactions().size()).isEqualTo(1);
   }
-
-
 }

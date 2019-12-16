@@ -2,11 +2,9 @@ package au.com.mebank.codingchallenge.joshluisaac.transactionprocessing;
 
 import static org.assertj.core.api.Assertions.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import au.com.mebank.codingchallenge.joshluisaac.FakeTestData;
+import java.math.BigDecimal;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,5 +74,4 @@ public class RelativeAccountBalanceTest {
     Result result = relativeAccountBalance.balance();
     assertThat(result.getTransactionsIncluded()).isEqualTo(2);
   }
-  
 }

@@ -3,12 +3,10 @@ package au.com.mebank.codingchallenge.joshluisaac.transactionprocessing;
 import static org.assertj.core.api.Assertions.*;
 
 import au.com.mebank.codingchallenge.joshluisaac.AbstractTest;
+import au.com.mebank.codingchallenge.joshluisaac.FakeTestData;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
-import au.com.mebank.codingchallenge.joshluisaac.FakeTestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,12 +48,12 @@ public class DebitTransactionsTestCase extends AbstractTest {
   void debitTransactionsShouldIncrease_OnNewDebitTransactionEntryWithInTimeFrame() {
     // when a new debit transaction is added within the given time frame
     Transaction debitTransactionWithinTimeFrame =
-            makePayment(
-                    "TX80003",
-                    "ACC334455",
-                    "ACC778899",
-                    TransactionUtils.parseDate("20/10/2018 14:00:01"),
-                    new BigDecimal("42.00"));
+        makePayment(
+            "TX80003",
+            "ACC334455",
+            "ACC778899",
+            TransactionUtils.parseDate("20/10/2018 14:00:01"),
+            new BigDecimal("42.00"));
     dataSet.add(debitTransactionWithinTimeFrame);
 
     // i expect the size of debit transactions to increase
@@ -173,5 +171,4 @@ public class DebitTransactionsTestCase extends AbstractTest {
     // i expect the payment transaction should be omitted
     assertThat(transactions.debitTransactions().size()).isEqualTo(0);
   }
-
 }
