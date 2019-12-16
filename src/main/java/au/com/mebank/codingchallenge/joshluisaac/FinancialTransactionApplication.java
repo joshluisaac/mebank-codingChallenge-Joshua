@@ -20,16 +20,11 @@ public class FinancialTransactionApplication {
 
   public static void main(String[] args) throws IOException {
     final Map<String, String> jvmArgs = mapJvmArgs();
-
     final TransactionQueryScope queryScope = createTransactionQueryScope(jvmArgs);
-
     final ITransactions<Transaction> transactions =
         new Transactions(createTransactionDataSet(jvmArgs), queryScope);
-
     final AccountBalance accountBalance = new RelativeAccountBalance(transactions);
-
     final Result result = accountBalance.balance();
-
     printResult(result);
   }
 
@@ -44,7 +39,6 @@ public class FinancialTransactionApplication {
     String endDate = System.getProperty(END_DATE).trim();
     String csvFilePath = System.getProperty(CSV_FILE_PATH).trim();
     jvmArgsPreconditions(accountId, startDate, endDate, csvFilePath);
-
     return Map.of(
         ACCOUNT_ID, accountId,
         START_DATE, startDate,
