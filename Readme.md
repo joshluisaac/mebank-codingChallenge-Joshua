@@ -12,10 +12,10 @@ and the number of transactions that are included.
 
 # Deliverables
 
-1. [Source code](src/main/java)
+1. [Source code](src/main/java/au/com/mebank/codingchallenge/joshluisaac)
 2. [Documentation](Readme.pdf)
 3. [Exception documentation and recovery strategies](exceptionsAndRecoveryStrategies.pdf)
-4. [Test harness](src/test)
+4. [Test harness](src/test/java/au/com/mebank/codingchallenge/joshluisaac)
 5. [Test coverage](https://coveralls.io/jobs/56914384)
 
 # Table of Contents
