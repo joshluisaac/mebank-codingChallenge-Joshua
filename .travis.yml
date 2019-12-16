@@ -1,6 +1,6 @@
 language: java
 
-script: mvn clean compile
+script: mvn clean compile test
 
 
 after_success:
