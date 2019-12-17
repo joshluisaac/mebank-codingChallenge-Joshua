@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import au.com.mebank.codingchallenge.joshluisaac.AbstractTest;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class TransactionUtilsTest extends AbstractTest {
@@ -13,6 +15,13 @@ public class TransactionUtilsTest extends AbstractTest {
   public void testShouldParseDate() {
     LocalDateTime testDate = TransactionUtils.parseDate("20/10/2018 19:45:11");
     assertThat(testDate).isEqualTo(LocalDateTime.of(2018, 10, 20, 19, 45, 11));
+  }
+
+  @Test
+  @DisplayName("Should throw exception when date is invalid")
+  public void testShouldThrowIllegalArgumentException_WhenRawDateIsInvalid() {
+    Throwable throwable = catchThrowable(() -> TransactionUtils.parseDate("20/10/2018 19:45"));
+    assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test
