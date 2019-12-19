@@ -1,5 +1,6 @@
 package au.com.mebank.codingchallenge.joshluisaac.transactionprocessing;
 
+import au.com.mebank.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -26,5 +27,30 @@ public class Transaction {
       return true;
     return (createdAt.isEqual(timeFrame.getStartDate())
         || createdAt.isEqual(timeFrame.getEndDate()));
+  }
+
+  public static Transaction createPayment(
+      String fromAccountId, String toAccountId, BigDecimal amount) {
+    return Transaction.builder()
+        .transactionId(UuidUtils.create().toString())
+        .createdAt(LocalDateTime.now())
+        .fromAccountId(fromAccountId)
+        .toAccountId(toAccountId)
+        .amount(amount)
+        .transactionType(TransactionType.PAYMENT)
+        .build();
+  }
+
+  public static Transaction createReversal(
+      String fromAccountId, String toAccountId, BigDecimal amount, String relatedTransaction) {
+    return Transaction.builder()
+        .transactionId(UuidUtils.create().toString())
+        .createdAt(LocalDateTime.now())
+        .fromAccountId(fromAccountId)
+        .toAccountId(toAccountId)
+        .amount(amount)
+        .transactionType(TransactionType.REVERSAL)
+        .relatedTransaction(relatedTransaction)
+        .build();
   }
 }
