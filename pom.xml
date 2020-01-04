@@ -14,6 +14,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jackson.version>2.10.0</jackson.version>
+
+        <sonar.projectKey>joshluisaac_mebank-codingChallenge-Joshua</sonar.projectKey>
+        <sonar.organization>joshluisaac</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>fe87c8f104d0b7bfcbd4519b0b6661760bde266c</sonar.login>
     </properties>
 
     <dependencies>
