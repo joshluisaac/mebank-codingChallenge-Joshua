@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id "io.freefair.lombok" version "4.1.6"
+    id 'jacoco'
+    id "org.sonarqube" version "2.7"
+}
+
+//https://github.com/freefair/gradle-plugins/issues/31
+//lombok overrides custom lombok.config files
+//Include this property to stop overriding default lombok.config file
+generateLombokConfig.enabled  = false
+
+ext {
+    springBootVersion = "2.2.2.RELEASE"
+    jacksonCoreVersion = "2.10.0"
+    swagger2Version = "2.9.2"
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+group = 'au.com.joshluisaac'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 11
+
+/*
+Executable jars can be built using the bootJar task.
+The task is automatically created when the java plugin is applied and is an instance of BootJar.
+The assemble task is automatically configured to depend upon the bootJar task
+so running assemble (or build) will also run the bootJar task.
+*/
+bootJar {
+    mainClassName = 'au.com.mebank.codingchallenge.joshluisaac.FinancialTransactionWeb'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+archivesBaseName = rootProject.name
+
+dependencies {
+    //compile and runtime dependencies
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springBootVersion"
+
+    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$jacksonCoreVersion"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "$jacksonCoreVersion"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonCoreVersion"
+    compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "$swagger2Version"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "$swagger2Version"
+    compile group: 'io.springfox', name: 'springfox-bean-validators', version: "$swagger2Version"
+
+    //test dependencies
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.5.2"
+    testImplementation "org.assertj:assertj-core:3.13.2"
+    testImplementation "org.mockito:mockito-core:3.0.0"
+}
